@@ -3,12 +3,19 @@ from pydantic import BaseModel,Field
 from typing import Annotated
 import joblib
 import pandas as pd
+from pathlib import Path
+
 
 app=FastAPI()
 
-pipeline = joblib.load("models/final_pipeline.pkl")
+BASE_DIR=Path(__file__).resolve().parent.parent
+MODEL_DIR=BASE_DIR/'models'/'final_pipeline.pkl'
 
-class Feature_Names(BaseModel):
+
+pipeline = joblib.load(MODEL_DIR)
+
+
+class FeatureNames(BaseModel):
     longitude:float|None = Field(ge=-125,le=-114)
     latitude:float|None = Field(ge=32,le=42)
     housing_median_age:float|None =Field(ge=0)
@@ -17,10 +24,10 @@ class Feature_Names(BaseModel):
     population:float|None = Field(ge=0)
     households:float|None = Field(ge=0)
     median_income:float|None = Field(ge=0)
-    ocean_proximity:str
+    ocean_proximity:str 
 
 @app.post("/predict")
-def predict_amount(features: Feature_Names):
+def predict_amount(features: FeatureNames):
 
     input_data = pd.DataFrame([features.model_dump()])
 

@@ -25,6 +25,12 @@ class FeatureNames(BaseModel):
     median_income:float = Field(ge=0)
     ocean_proximity:str 
 
+
+@app.get('/')
+def return_item():
+    return {'message':'California House Price Prediction API is running'}
+
+
 @app.post("/predict")
 def predict_amount(features: FeatureNames):
 

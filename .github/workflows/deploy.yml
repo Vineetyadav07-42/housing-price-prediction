@@ -1,4 +1,3 @@
-```yaml
 name: House Price CI/CD
 
 on:
@@ -56,14 +55,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 643220020834.dkr.ecr.ap-south-1.amazonaws.com
-
             docker pull 643220020834.dkr.ecr.ap-south-1.amazonaws.com/house-price-api:latest
-
             docker stop house-price-api || true
             docker rm house-price-api || true
-
-            docker run -d \
-              --name house-price-api \
-              -p 8000:8000 \
-              643220020834.dkr.ecr.ap-south-1.amazonaws.com/house-price-api:latest
-```
+            docker run -d --name house-price-api -p 8000:8000 643220020834.dkr.ecr.ap-south-1.amazonaws.com/house-price-api:latest

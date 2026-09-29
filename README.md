@@ -4,7 +4,7 @@ An end-to-end machine learning project that predicts California house prices usi
 
 ## Live Demo
 
-The trained model is deployed as a REST API using FastAPI and Docker.
+The trained model is deployed as a REST API using FastAPI and Docker .
 
 **Live API:** https://housing-price-prediction-f2fz.onrender.com
 

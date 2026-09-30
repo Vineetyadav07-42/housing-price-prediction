@@ -1,14 +1,14 @@
 # California House Price Prediction
 
-An end-to-end machine learning project that predicts California house prices using **XGBoost**, with custom feature engineering, data preprocessing, FastAPI, Docker, and cloud deployment.
+An end-to-end machine learning project that predicts California house prices using **XGBoost**, with custom feature engineering, data preprocessing, FastAPI, Docker, CI/CD, and cloud deployment.
 
 ## Live Demo
 
-The trained model  is deployed as a REST API using FastAPI and Docker .
+The trained model is deployed as a REST API using FastAPI and Docker on **AWS EC2**.
 
-**Live API:** https://housing-price-prediction-f2fz.onrender.com
+**Live API:** http://13.203.86.159:8000
 
-**Interactive API Documentation:** https://housing-price-prediction-f2fz.onrender.com/docs
+**Interactive API Documentation:** http://13.203.86.159:8000/docs
 
 The Swagger UI allows users to send house features and receive a predicted house value.
 
@@ -41,7 +41,9 @@ FastAPI
   ↓
 Docker
   ↓
-Cloud Deployment
+CI/CD Pipeline
+  ↓
+AWS Deployment
 ```
 
 ---
@@ -190,7 +192,7 @@ Housing_Project_Resume/
 │
 ├── notebooks/
 │   └── best_model_selection.ipynb
-|   |__ fine_tune_bestmodel.ipynb 
+\|   |\_\_ fine_tune_bestmodel.ipynb
 │
 ├── src/
 │   ├── __init__.py
@@ -198,6 +200,10 @@ Housing_Project_Resume/
 │   ├── FE.py
 │   ├── preprocessing_model.py
 │   └── training.py
+│
+├── .github/
+│   └── workflows/
+│       └── deploy.yml
 │
 ├── .dockerignore
 ├── .gitignore
@@ -234,7 +240,10 @@ Housing_Project_Resume/
 * Docker
 * Git
 * GitHub
-* Render
+* GitHub Actions
+* CI/CD
+* AWS ECR
+* AWS EC2
 
 ---
 
@@ -290,7 +299,7 @@ models/final_pipeline.pkl
 Start the API:
 
 ```bash
-uvicorn src.api:app --reload
+uvicorn src.api\:app --reload
 ```
 
 The API will run at:
@@ -375,18 +384,60 @@ http://localhost:8000/docs
 
 ---
 
+# CI/CD Pipeline
+
+The project uses **GitHub Actions** to automate the build and deployment process.
+
+The workflow configuration is located at:
+
+```text
+.github/workflows/deploy.yml
+```
+
+The CI/CD pipeline automates the deployment workflow after changes are pushed to the GitHub repository.
+
+The deployment process includes:
+
+```text
+Code Push to GitHub
+        ↓
+GitHub Actions
+        ↓
+Build Docker Image
+        ↓
+Push Docker Image to AWS ECR
+        ↓
+Connect to AWS EC2
+        ↓
+Pull Updated Docker Image
+        ↓
+Stop/Replace Previous Container
+        ↓
+Run Updated Container
+        ↓
+Live FastAPI Application
+```
+
+This eliminates the need to manually perform the Docker build, ECR push, and EC2 deployment steps after every code change.
+
+---
+
 # Cloud Deployment
 
-The application is deployed using **Render**.
+The application is deployed using **AWS ECR and AWS EC2**.
 
 The deployment architecture is:
 
 ```text
 GitHub Repository
        ↓
-Render
+GitHub Actions CI/CD
        ↓
 Docker Build
+       ↓
+AWS ECR
+       ↓
+AWS EC2
        ↓
 Docker Container
        ↓
@@ -397,11 +448,17 @@ Saved XGBoost Pipeline
 Prediction
 ```
 
+### AWS Components
+
+* **AWS ECR** – Stores the Docker image.
+* **AWS EC2** – Hosts and runs the Docker container.
+* **GitHub Actions** – Automates the CI/CD deployment process.
+
 ### Live Application
 
-**API:** https://housing-price-prediction-f2fz.onrender.com
+**API:** http://13.203.86.159:8000
 
-**Swagger UI:** https://housing-price-prediction-f2fz.onrender.com/docs
+**Swagger UI:** http://13.203.86.159:8000/docs
 
 ---
 
@@ -429,6 +486,10 @@ This project demonstrates practical knowledge of:
 * REST API Development
 * Pydantic Data Validation
 * Docker Containerization
+* CI/CD
+* GitHub Actions
+* AWS ECR
+* AWS EC2
 * Cloud Deployment
 * Git & GitHub
 
@@ -439,7 +500,6 @@ This project demonstrates practical knowledge of:
 Potential improvements include:
 
 * Add automated unit and integration tests
-* Add CI/CD using GitHub Actions
 * Add API logging
 * Add model monitoring
 * Add data validation

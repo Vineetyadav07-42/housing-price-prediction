@@ -6,9 +6,9 @@ An end-to-end machine learning project that predicts California house prices usi
 
 The trained model is deployed as a REST API using FastAPI and Docker on **AWS EC2**.
 
-**Live API:** http://13.203.86.159:8000
+**Live API:** http://13.234.69.92:8000
 
-**Interactive API Documentation:** http://13.203.86.159:8000/docs
+**Interactive API Documentation:** http://13.234.69.92:8000/docs
 
 The Swagger UI allows users to send house features and receive a predicted house value.
 
@@ -135,7 +135,7 @@ Multiple regression models were evaluated using cross-validation.
 |   1 | Linear Regression       |     68,276.93 |     0.6516 |
 |   2 | Decision Tree Regressor |     70,835.44 |     0.6244 |
 |   3 | Random Forest Regressor |     51,041.82 |     0.8050 |
-|   4 | XGBoost Regressor       | **48,128.46** | **0.8268** |
+|   4 | **XGBoost Regressor**   | **48,128.46** | **0.8268** |
 
 ### Final Model
 
@@ -183,6 +183,7 @@ Saving the entire pipeline ensures that feature engineering and preprocessing ar
 
 ```text
 Housing_Project_Resume/
+
 │
 ├── data/
 │   └── housing.csv
@@ -191,8 +192,8 @@ Housing_Project_Resume/
 │   └── final_pipeline.pkl
 │
 ├── notebooks/
-│   └── best_model_selection.ipynb
-\|   |\_\_ fine_tune_bestmodel.ipynb
+│   ├── best_model_selection.ipynb
+│   └── fine_tune_bestmodel.ipynb
 │
 ├── src/
 │   ├── __init__.py
@@ -299,7 +300,7 @@ models/final_pipeline.pkl
 Start the API:
 
 ```bash
-uvicorn src.api\:app --reload
+uvicorn src.api:app --reload
 ```
 
 The API will run at:
@@ -456,9 +457,11 @@ Prediction
 
 ### Live Application
 
-**API:** http://13.203.86.159:8000
+**API:** http://13.234.69.92:8000
 
-**Swagger UI:** http://13.203.86.159:8000/docs
+**Swagger UI:** http://13.234.69.92:8000/docs
+
+The application uses an **AWS Elastic IP** to provide a stable public IP address for the deployed API.
 
 ---
 
@@ -477,7 +480,7 @@ This project demonstrates practical knowledge of:
 * Cross-Validation
 * Hyperparameter Tuning
 * XGBoost
-* LinearRegresson
+* LinearRegression
 * RandomForestRegressor
 * DecisionTreeRegressor
 * GridSearchCV
@@ -490,6 +493,7 @@ This project demonstrates practical knowledge of:
 * GitHub Actions
 * AWS ECR
 * AWS EC2
+* Elastic IP
 * Cloud Deployment
 * Git & GitHub
 

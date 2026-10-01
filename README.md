@@ -395,7 +395,7 @@ The workflow configuration is located at:
 .github/workflows/deploy.yml
 ```
 
-The CI/CD pipeline automates the deployment workflow after changes are pushed to the GitHub repository.
+The CI/CD pipeline  automates the deployment workflow after changes are pushed to the GitHub repository.
 
 The deployment process includes:
 
